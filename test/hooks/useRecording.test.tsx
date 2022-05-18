@@ -8,7 +8,7 @@ import DailyIframe, {
   DailyEventObjectRecordingStarted,
   DailyStreamingLayoutConfig,
   DailyStreamingOptions,
-} from '@daily-co/daily-js';
+} from '@daily-co/react-native-daily-js';
 import { act, renderHook } from '@testing-library/react-hooks';
 import faker from 'faker';
 import React from 'react';
@@ -28,10 +28,11 @@ jest.mock('../../src/hooks/useLocalParticipant', () => ({
   useLocalParticipant: () => ({ session_id: localId }),
 }));
 
-const createWrapper =
-  (callObject: DailyCall = DailyIframe.createCallObject()): React.FC =>
-  ({ children }) =>
-    <DailyProvider callObject={callObject}>{children}</DailyProvider>;
+const createWrapper = (
+  callObject: DailyCall = DailyIframe.createCallObject()
+): React.FC => ({ children }) => (
+  <DailyProvider callObject={callObject}>{children}</DailyProvider>
+);
 
 describe('useRecording', () => {
   beforeEach(() => {

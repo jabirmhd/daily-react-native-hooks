@@ -1,4 +1,4 @@
-import { DailyEvent, DailyEventObject } from '@daily-co/daily-js';
+import { DailyEvent, DailyEventObject } from '@daily-co/react-native-daily-js';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 import { DailyEventContext } from '../DailyEventContext';

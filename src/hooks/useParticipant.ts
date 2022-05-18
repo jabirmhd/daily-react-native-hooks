@@ -1,4 +1,4 @@
-import { DailyEventObjectParticipant } from '@daily-co/daily-js';
+import { DailyEventObjectParticipant } from '@daily-co/react-native-daily-js';
 import { useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -25,10 +25,10 @@ export const useParticipant = (
     useCallback(
       (evts: DailyEventObjectParticipant[]) => {
         const filteredEvts = evts.filter(
-          (ev) => ev.participant.session_id === sessionId
+          ev => ev.participant.session_id === sessionId
         );
         if (!filteredEvts.length) return;
-        filteredEvts.forEach((ev) => {
+        filteredEvts.forEach(ev => {
           setTimeout(() => onParticipantUpdated?.(ev), 0);
         });
       },
@@ -41,7 +41,7 @@ export const useParticipant = (
     useCallback(
       (evts: DailyEventObjectParticipant[]) => {
         const filteredEvts = evts.filter(
-          (ev) => ev.participant.session_id === sessionId
+          ev => ev.participant.session_id === sessionId
         );
         if (!filteredEvts.length) return;
         // Last event is sufficient to pass the information

@@ -3,7 +3,7 @@ import {
   DailyEventObjectParticipants,
   DailyParticipant,
   DailyTrackState,
-} from '@daily-co/daily-js';
+} from '@daily-co/react-native-daily-js';
 import { useEffect, useMemo } from 'react';
 import { atomFamily, useRecoilCallback, useRecoilValue } from 'recoil';
 
@@ -38,26 +38,25 @@ export const useMediaTrack = (
   const trackState = useRecoilValue(mediaTrackState(key));
 
   const handleNewParticipantState = useRecoilCallback(
-    ({ transact_UNSTABLE }) =>
-      (evts: DailyEventObjectParticipant[]) => {
-        const filteredEvts = evts.filter(
-          (ev) => ev.participant.session_id === participantId
-        );
-        if (!filteredEvts.length) return;
-        transact_UNSTABLE(({ set, reset }) => {
-          filteredEvts.forEach((ev) => {
-            switch (ev.action) {
-              case 'participant-joined':
-              case 'participant-updated':
-                set(mediaTrackState(key), ev.participant.tracks[type]);
-                break;
-              case 'participant-left':
-                reset(mediaTrackState(key));
-                break;
-            }
-          });
+    ({ transact_UNSTABLE }) => (evts: DailyEventObjectParticipant[]) => {
+      const filteredEvts = evts.filter(
+        ev => ev.participant.session_id === participantId
+      );
+      if (!filteredEvts.length) return;
+      transact_UNSTABLE(({ set, reset }) => {
+        filteredEvts.forEach(ev => {
+          switch (ev.action) {
+            case 'participant-joined':
+            case 'participant-updated':
+              set(mediaTrackState(key), ev.participant.tracks[type]);
+              break;
+            case 'participant-left':
+              reset(mediaTrackState(key));
+              break;
+          }
         });
-      },
+      });
+    },
     [key, participantId, type]
   );
 
@@ -68,20 +67,18 @@ export const useMediaTrack = (
   useDailyEvent(
     'joined-meeting',
     useRecoilCallback(
-      ({ set }) =>
-        (ev: DailyEventObjectParticipants) => {
-          set(mediaTrackState(key), ev.participants.local.tracks[type]);
-        },
+      ({ set }) => (ev: DailyEventObjectParticipants) => {
+        set(mediaTrackState(key), ev.participants.local.tracks[type]);
+      },
       [key, type]
     )
   );
 
   const setInitialState = useRecoilCallback(
-    ({ set }) =>
-      (initialState: DailyTrackState) => {
-        if (!initialState) return;
-        set(mediaTrackState(key), initialState);
-      },
+    ({ set }) => (initialState: DailyTrackState) => {
+      if (!initialState) return;
+      set(mediaTrackState(key), initialState);
+    },
     [key]
   );
   useEffect(() => {
@@ -89,7 +86,7 @@ export const useMediaTrack = (
     const participants = daily?.participants();
     if (!participants) return;
     const participant = Object.values(participants).find(
-      (p) => p.session_id === participantId
+      p => p.session_id === participantId
     );
     if (!participant) return;
     setInitialState(participant.tracks[type]);

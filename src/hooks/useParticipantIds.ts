@@ -2,7 +2,7 @@ import {
   DailyEventObjectActiveSpeakerChange,
   DailyEventObjectParticipant,
   DailyParticipant,
-} from '@daily-co/daily-js';
+} from '@daily-co/react-native-daily-js';
 import { useCallback, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -68,19 +68,19 @@ export const useParticipantIds = (
     let filterFn = defaultFilter;
     switch (filter) {
       case 'local':
-        filterFn = (p) => p.local;
+        filterFn = p => p.local;
         break;
       case 'owner':
-        filterFn = (p) => p.owner;
+        filterFn = p => p.owner;
         break;
       case 'record':
-        filterFn = (p) => p.record;
+        filterFn = p => p.record;
         break;
       case 'remote':
-        filterFn = (p) => !p.local;
+        filterFn = p => !p.local;
         break;
       case 'screen':
-        filterFn = (p) => p.screen;
+        filterFn = p => p.screen;
         break;
       default:
         filterFn = filter;
@@ -104,7 +104,7 @@ export const useParticipantIds = (
     return allParticipants
       .filter(filterFn)
       .sort(sortFn)
-      .map((p) => p.session_id)
+      .map(p => p.session_id)
       .filter(Boolean);
   }, [allParticipants, filter, sort]);
 
@@ -113,7 +113,7 @@ export const useParticipantIds = (
     useCallback(
       (evts: DailyEventObjectParticipant[]) => {
         if (!evts.length) return;
-        evts.forEach((ev) => setTimeout(() => onParticipantJoined?.(ev), 0));
+        evts.forEach(ev => setTimeout(() => onParticipantJoined?.(ev), 0));
       },
       [onParticipantJoined]
     )
@@ -124,7 +124,7 @@ export const useParticipantIds = (
     useCallback(
       (evts: DailyEventObjectParticipant[]) => {
         if (!evts.length) return;
-        evts.forEach((ev) => setTimeout(() => onParticipantUpdated?.(ev), 0));
+        evts.forEach(ev => setTimeout(() => onParticipantUpdated?.(ev), 0));
       },
       [onParticipantUpdated]
     )
@@ -135,7 +135,7 @@ export const useParticipantIds = (
     useCallback(
       async (evts: DailyEventObjectActiveSpeakerChange[]) => {
         if (!evts.length) return;
-        evts.forEach((ev) => setTimeout(() => onActiveSpeakerChange?.(ev), 0));
+        evts.forEach(ev => setTimeout(() => onActiveSpeakerChange?.(ev), 0));
       },
       [onActiveSpeakerChange]
     )
@@ -146,7 +146,7 @@ export const useParticipantIds = (
     useCallback(
       (evts: DailyEventObjectParticipant[]) => {
         if (!evts.length) return;
-        evts.forEach((ev) => setTimeout(() => onParticipantLeft?.(ev), 0));
+        evts.forEach(ev => setTimeout(() => onParticipantLeft?.(ev), 0));
       },
       [onParticipantLeft]
     )

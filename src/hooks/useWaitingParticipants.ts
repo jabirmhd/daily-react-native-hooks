@@ -1,7 +1,7 @@
 import {
   DailyEventObjectWaitingParticipant,
   DailyWaitingParticipant,
-} from '@daily-co/daily-js';
+} from '@daily-co/react-native-daily-js';
 import { useCallback } from 'react';
 import {
   atom,
@@ -43,7 +43,7 @@ export const allWaitingParticipantsSelector = selector({
   key: 'waitingParticipantsSelector',
   get: ({ get }) => {
     const ids = get(waitingParticipantsState);
-    return ids.map((id) => get(waitingParticipantState(id)));
+    return ids.map(id => get(waitingParticipantState(id)));
   },
 });
 
@@ -60,42 +60,39 @@ export const useWaitingParticipants = ({
   const waitingParticipants = useRecoilValue(allWaitingParticipantsSelector);
 
   const handleAdded = useRecoilCallback(
-    ({ transact_UNSTABLE }) =>
-      (ev: DailyEventObjectWaitingParticipant) => {
-        transact_UNSTABLE(({ set }) => {
-          set(waitingParticipantsState, (wps) => {
-            if (!wps.includes(ev.participant.id)) {
-              return [...wps, ev.participant.id];
-            }
-            return wps;
-          });
-          set(waitingParticipantState(ev.participant.id), ev.participant);
+    ({ transact_UNSTABLE }) => (ev: DailyEventObjectWaitingParticipant) => {
+      transact_UNSTABLE(({ set }) => {
+        set(waitingParticipantsState, wps => {
+          if (!wps.includes(ev.participant.id)) {
+            return [...wps, ev.participant.id];
+          }
+          return wps;
         });
-        setTimeout(() => onWaitingParticipantAdded?.(ev), 0);
-      },
+        set(waitingParticipantState(ev.participant.id), ev.participant);
+      });
+      setTimeout(() => onWaitingParticipantAdded?.(ev), 0);
+    },
     [onWaitingParticipantAdded]
   );
 
   const handleRemoved = useRecoilCallback(
-    ({ transact_UNSTABLE }) =>
-      (ev: DailyEventObjectWaitingParticipant) => {
-        transact_UNSTABLE(({ set, reset }) => {
-          set(waitingParticipantsState, (wps) =>
-            wps.filter((wp) => wp !== ev.participant.id)
-          );
-          reset(waitingParticipantState(ev.participant.id));
-        });
-        setTimeout(() => onWaitingParticipantRemoved?.(ev), 0);
-      },
+    ({ transact_UNSTABLE }) => (ev: DailyEventObjectWaitingParticipant) => {
+      transact_UNSTABLE(({ set, reset }) => {
+        set(waitingParticipantsState, wps =>
+          wps.filter(wp => wp !== ev.participant.id)
+        );
+        reset(waitingParticipantState(ev.participant.id));
+      });
+      setTimeout(() => onWaitingParticipantRemoved?.(ev), 0);
+    },
     [onWaitingParticipantRemoved]
   );
 
   const handleUpdated = useRecoilCallback(
-    ({ set }) =>
-      (ev: DailyEventObjectWaitingParticipant) => {
-        set(waitingParticipantState(ev.participant.id), ev.participant);
-        setTimeout(() => onWaitingParticipantUpdated?.(ev), 0);
-      },
+    ({ set }) => (ev: DailyEventObjectWaitingParticipant) => {
+      set(waitingParticipantState(ev.participant.id), ev.participant);
+      setTimeout(() => onWaitingParticipantUpdated?.(ev), 0);
+    },
     [onWaitingParticipantUpdated]
   );
 

@@ -4,7 +4,7 @@ import {
   DailyEventObjectLiveStreamingStarted,
   DailyLiveStreamingOptions,
   DailyStreamingLayoutConfig,
-} from '@daily-co/daily-js';
+} from '@daily-co/react-native-daily-js';
 import { useCallback } from 'react';
 import { atom, useRecoilCallback, useRecoilValue } from 'recoil';
 
@@ -49,14 +49,13 @@ export const useLiveStreaming = ({
   useDailyEvent(
     'live-streaming-started',
     useRecoilCallback(
-      ({ set }) =>
-        (ev: DailyEventObjectLiveStreamingStarted) => {
-          set(liveStreamingState, {
-            isLiveStreaming: true,
-            layout: ev?.layout,
-          });
-          setTimeout(() => onLiveStreamingStarted?.(ev), 0);
-        },
+      ({ set }) => (ev: DailyEventObjectLiveStreamingStarted) => {
+        set(liveStreamingState, {
+          isLiveStreaming: true,
+          layout: ev?.layout,
+        });
+        setTimeout(() => onLiveStreamingStarted?.(ev), 0);
+      },
       [onLiveStreamingStarted]
     )
   );
@@ -64,15 +63,14 @@ export const useLiveStreaming = ({
   useDailyEvent(
     'live-streaming-stopped',
     useRecoilCallback(
-      ({ set }) =>
-        (ev: DailyEventObject) => {
-          set(liveStreamingState, (prevState) => ({
-            ...prevState,
-            isLiveStreaming: false,
-            layout: undefined,
-          }));
-          setTimeout(() => onLiveStreamingStopped?.(ev), 0);
-        },
+      ({ set }) => (ev: DailyEventObject) => {
+        set(liveStreamingState, prevState => ({
+          ...prevState,
+          isLiveStreaming: false,
+          layout: undefined,
+        }));
+        setTimeout(() => onLiveStreamingStopped?.(ev), 0);
+      },
       [onLiveStreamingStopped]
     )
   );
@@ -80,14 +78,13 @@ export const useLiveStreaming = ({
   useDailyEvent(
     'live-streaming-error',
     useRecoilCallback(
-      ({ set }) =>
-        (ev: DailyEventObjectGenericError) => {
-          set(liveStreamingState, (prevState) => ({
-            ...prevState,
-            errorMsg: ev.errorMsg,
-          }));
-          setTimeout(() => onLiveStreamingError?.(ev), 0);
-        },
+      ({ set }) => (ev: DailyEventObjectGenericError) => {
+        set(liveStreamingState, prevState => ({
+          ...prevState,
+          errorMsg: ev.errorMsg,
+        }));
+        setTimeout(() => onLiveStreamingError?.(ev), 0);
+      },
       [onLiveStreamingError]
     )
   );

@@ -3,7 +3,7 @@ import DailyIframe, {
   DailyCallOptions,
   DailyEvent,
   DailyEventObject,
-} from '@daily-co/daily-js';
+} from '@daily-co/react-native-daily-js';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 
@@ -59,7 +59,7 @@ export const DailyProvider: React.FC<React.PropsWithChildren<Props>> = ({
   const initEventHandlers = useCallback(
     (daily: DailyCall) => {
       if (!daily) return;
-      (Object.keys(eventsMap.current) as DailyEvent[]).forEach((event) => {
+      (Object.keys(eventsMap.current) as DailyEvent[]).forEach(event => {
         daily
           .off(event as DailyEvent, handleEvent)
           .on(event as DailyEvent, handleEvent);

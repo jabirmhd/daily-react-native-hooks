@@ -7,7 +7,7 @@ import DailyIframe, {
   DailyEventObjectParticipant,
   DailyParticipant,
   DailyParticipantsObject,
-} from '@daily-co/daily-js';
+} from '@daily-co/react-native-daily-js';
 import { act, renderHook } from '@testing-library/react-hooks';
 import faker from 'faker';
 import React from 'react';
@@ -22,10 +22,11 @@ jest.mock('../../src/DailyParticipants', () => ({
   DailyParticipants: (({ children }) => <>{children}</>) as React.FC,
 }));
 
-const createWrapper =
-  (callObject: DailyCall = DailyIframe.createCallObject()): React.FC =>
-  ({ children }) =>
-    <DailyProvider callObject={callObject}>{children}</DailyProvider>;
+const createWrapper = (
+  callObject: DailyCall = DailyIframe.createCallObject()
+): React.FC => ({ children }) => (
+  <DailyProvider callObject={callObject}>{children}</DailyProvider>
+);
 
 describe('useDevices', () => {
   beforeEach(() => {
@@ -228,7 +229,7 @@ describe('useDevices', () => {
         result.current.refreshDevices();
       });
       await waitFor(() => {
-        const labels = result.current.microphones.map((m) => m.device.label);
+        const labels = result.current.microphones.map(m => m.device.label);
         expect(labels).toEqual<string[]>([
           'Default - Internal mic',
           'A microphone',

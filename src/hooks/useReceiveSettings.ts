@@ -2,7 +2,7 @@ import {
   DailyEventObjectReceiveSettingsUpdated,
   DailyReceiveSettings,
   DailySingleParticipantReceiveSettings,
-} from '@daily-co/daily-js';
+} from '@daily-co/react-native-daily-js';
 import { useCallback } from 'react';
 import { atomFamily, useRecoilCallback, useRecoilValue } from 'recoil';
 
@@ -39,19 +39,20 @@ export const useReceiveSettings = ({
   useDailyEvent(
     'receive-settings-updated',
     useRecoilCallback(
-      ({ transact_UNSTABLE }) =>
-        (ev: DailyEventObjectReceiveSettingsUpdated) => {
-          transact_UNSTABLE(({ set, reset }) => {
-            const { ...ids } = ev.receiveSettings;
-            for (let [id, settings] of Object.entries(ids)) {
-              set(participantReceiveSettingsState(id), settings);
-            }
-            if (!(id in ids)) {
-              reset(participantReceiveSettingsState(id));
-            }
-          });
-          setTimeout(() => onReceiveSettingsUpdated?.(ev), 0);
-        },
+      ({ transact_UNSTABLE }) => (
+        ev: DailyEventObjectReceiveSettingsUpdated
+      ) => {
+        transact_UNSTABLE(({ set, reset }) => {
+          const { ...ids } = ev.receiveSettings;
+          for (let [id, settings] of Object.entries(ids)) {
+            set(participantReceiveSettingsState(id), settings);
+          }
+          if (!(id in ids)) {
+            reset(participantReceiveSettingsState(id));
+          }
+        });
+        setTimeout(() => onReceiveSettingsUpdated?.(ev), 0);
+      },
       [id, onReceiveSettingsUpdated]
     )
   );

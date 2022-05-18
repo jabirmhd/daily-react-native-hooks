@@ -1,4 +1,4 @@
-import { DailyEventObjectAppMessage } from '@daily-co/daily-js';
+import { DailyEventObjectAppMessage } from '@daily-co/react-native-daily-js';
 import { useCallback } from 'react';
 
 import { useDaily } from './useDaily';

@@ -20,7 +20,7 @@
     "analyze": "size-limit --why"
   },
   "peerDependencies": {
-    "@daily-co/daily-js": ">=0.22.0 <1",
+    "@daily-co/react-native-daily-js": ">=0.24.0 <1",
     "react": ">=16.13.1",
     "recoil": "^0.7.0"
   },
@@ -78,7 +78,7 @@
     "jest": "^27.0.5",
     "prettier-eslint": "^12.0.0",
     "prettier-eslint-cli": "^1.2.0",
-    "react": "^17.0.2",
+    "react": ">=16.13.1",
     "react-dom": "^17.0.2",
     "size-limit": "^5.0.3",
     "ts-jest": "^27.0.5",

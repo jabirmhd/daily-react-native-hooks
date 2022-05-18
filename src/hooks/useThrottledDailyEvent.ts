@@ -1,4 +1,4 @@
-import { DailyEvent, DailyEventObject } from '@daily-co/daily-js';
+import { DailyEvent, DailyEventObject } from '@daily-co/react-native-daily-js';
 import throttle from 'lodash.throttle';
 import { useContext, useEffect, useMemo, useRef } from 'react';
 

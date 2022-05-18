@@ -1,4 +1,4 @@
-import { DailyEventObjectParticipant } from '@daily-co/daily-js';
+import { DailyEventObjectParticipant } from '@daily-co/react-native-daily-js';
 import { useEffect } from 'react';
 import { atom, useRecoilCallback, useRecoilValue } from 'recoil';
 
@@ -18,11 +18,10 @@ export const useLocalParticipant = (): ReturnType<typeof useParticipant> => {
   const localId = useRecoilValue(localIdState);
 
   const initState = useRecoilCallback(
-    ({ set }) =>
-      (session_id: string) => {
-        if (!session_id) return;
-        set(localIdState, session_id);
-      },
+    ({ set }) => (session_id: string) => {
+      if (!session_id) return;
+      set(localIdState, session_id);
+    },
     []
   );
   useEffect(() => {

@@ -3,7 +3,7 @@
 import DailyIframe, {
   DailyCall,
   DailyEventObjectAppMessage,
-} from '@daily-co/daily-js';
+} from '@daily-co/react-native-daily-js';
 import { act, renderHook } from '@testing-library/react-hooks';
 import React from 'react';
 
@@ -17,10 +17,11 @@ jest.mock('../../src/DailyParticipants', () => ({
   DailyParticipants: (({ children }) => <>{children}</>) as React.FC,
 }));
 
-const createWrapper =
-  (callObject: DailyCall = DailyIframe.createCallObject()): React.FC =>
-  ({ children }) =>
-    <DailyProvider callObject={callObject}>{children}</DailyProvider>;
+const createWrapper = (
+  callObject: DailyCall = DailyIframe.createCallObject()
+): React.FC => ({ children }) => (
+  <DailyProvider callObject={callObject}>{children}</DailyProvider>
+);
 
 describe('useThrottledDailyEvent', () => {
   it('registers and unregisters a daily event listener', async () => {

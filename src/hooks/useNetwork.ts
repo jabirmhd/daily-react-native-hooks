@@ -1,9 +1,9 @@
 import {
   DailyEventObjectNetworkConnectionEvent,
   DailyEventObjectNetworkQualityEvent,
+  DailyNetworkConnectionType,
   DailyNetworkStats,
-  DailyNetworkTopology,
-} from '@daily-co/daily-js';
+} from '@daily-co/react-native-daily-js';
 import { useCallback } from 'react';
 import { atom, useRecoilCallback, useRecoilValue } from 'recoil';
 
@@ -15,9 +15,9 @@ interface UseNetworkArgs {
   onNetworkQualityChange?(ev: DailyEventObjectNetworkQualityEvent): void;
 }
 
-const topologyState = atom<DailyNetworkTopology>({
+const topologyState = atom<DailyNetworkConnectionType>({
   key: 'topology',
-  default: 'peer',
+  default: 'peer-to-peer',
 });
 const networkQualityState = atom<DailyNetworkStats['quality']>({
   key: 'networkQuality',
@@ -43,34 +43,32 @@ export const useNetwork = ({
   const threshold = useRecoilValue(networkThresholdState);
 
   const handleNetworkConnection = useRecoilCallback(
-    ({ transact_UNSTABLE }) =>
-      (ev: DailyEventObjectNetworkConnectionEvent) => {
-        transact_UNSTABLE(({ set }) => {
-          switch (ev.event) {
-            case 'connected':
-              if (ev.type === 'peer-to-peer') set(topologyState, 'peer');
-              if (ev.type === 'sfu') set(topologyState, 'sfu');
-              break;
-          }
-        });
-        setTimeout(() => onNetworkConnection?.(ev), 0);
-      },
+    ({ transact_UNSTABLE }) => (ev: DailyEventObjectNetworkConnectionEvent) => {
+      transact_UNSTABLE(({ set }) => {
+        switch (ev.event) {
+          case 'connected':
+            if (ev.type === 'peer-to-peer') set(topologyState, 'peer-to-peer');
+            if (ev.type === 'sfu') set(topologyState, 'sfu');
+            break;
+        }
+      });
+      setTimeout(() => onNetworkConnection?.(ev), 0);
+    },
     [onNetworkConnection]
   );
 
   const handleNetworkQualityChange = useRecoilCallback(
-    ({ transact_UNSTABLE }) =>
-      (ev: DailyEventObjectNetworkQualityEvent) => {
-        transact_UNSTABLE(({ set }) => {
-          set(networkQualityState, (prevQuality) =>
-            prevQuality !== ev.quality ? ev.quality : prevQuality
-          );
-          set(networkThresholdState, (prevThreshold) =>
-            prevThreshold !== ev.threshold ? ev.threshold : prevThreshold
-          );
-        });
-        setTimeout(() => onNetworkQualityChange?.(ev), 0);
-      },
+    ({ transact_UNSTABLE }) => (ev: DailyEventObjectNetworkQualityEvent) => {
+      transact_UNSTABLE(({ set }) => {
+        set(networkQualityState, prevQuality =>
+          prevQuality !== ev.quality ? ev.quality : prevQuality
+        );
+        set(networkThresholdState, prevThreshold =>
+          prevThreshold !== ev.threshold ? ev.threshold : prevThreshold
+        );
+      });
+      setTimeout(() => onNetworkQualityChange?.(ev), 0);
+    },
     [onNetworkQualityChange]
   );
 

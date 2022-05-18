@@ -1,4 +1,4 @@
-import { DailyRoomInfo } from '@daily-co/daily-js';
+import { DailyRoomInfo } from '@daily-co/react-native-daily-js';
 import { useRecoilValue } from 'recoil';
 
 import { roomState } from '../DailyRoom';

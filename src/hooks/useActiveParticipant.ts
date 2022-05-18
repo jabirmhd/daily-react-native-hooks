@@ -1,4 +1,4 @@
-import { DailyEventObjectActiveSpeakerChange } from '@daily-co/daily-js';
+import { DailyEventObjectActiveSpeakerChange } from '@daily-co/react-native-daily-js';
 import { useEffect, useState } from 'react';
 import { atom, useRecoilCallback, useRecoilValue } from 'recoil';
 
@@ -47,11 +47,10 @@ export const useActiveParticipant = ({
   useDailyEvent(
     'active-speaker-change',
     useRecoilCallback(
-      ({ set }) =>
-        (ev: DailyEventObjectActiveSpeakerChange) => {
-          set(activeIdState, ev.activeSpeaker.peerId);
-          setTimeout(() => onActiveSpeakerChange?.(ev), 0);
-        },
+      ({ set }) => (ev: DailyEventObjectActiveSpeakerChange) => {
+        set(activeIdState, ev.activeSpeaker.peerId);
+        setTimeout(() => onActiveSpeakerChange?.(ev), 0);
+      },
       [onActiveSpeakerChange]
     )
   );

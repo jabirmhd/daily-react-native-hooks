@@ -6,7 +6,7 @@ import DailyIframe, {
   DailyEventObjectActiveSpeakerChange,
   DailyEventObjectParticipant,
   DailyEventObjectParticipants,
-} from '@daily-co/daily-js';
+} from '@daily-co/react-native-daily-js';
 import { act, renderHook } from '@testing-library/react-hooks';
 import React from 'react';
 
@@ -17,10 +17,11 @@ jest.mock('../../src/DailyRoom', () => ({
   DailyRoom: (({ children }) => <>{children}</>) as React.FC,
 }));
 
-const createWrapper =
-  (callObject: DailyCall = DailyIframe.createCallObject()): React.FC =>
-  ({ children }) =>
-    <DailyProvider callObject={callObject}>{children}</DailyProvider>;
+const createWrapper = (
+  callObject: DailyCall = DailyIframe.createCallObject()
+): React.FC => ({ children }) => (
+  <DailyProvider callObject={callObject}>{children}</DailyProvider>
+);
 
 describe('useParticipantIds', () => {
   beforeEach(() => {
@@ -156,7 +157,7 @@ describe('useParticipantIds', () => {
       const { result, waitFor } = renderHook(
         () =>
           useParticipantIds({
-            filter: (p) => p.session_id.includes('a'),
+            filter: p => p.session_id.includes('a'),
           }),
         {
           wrapper: createWrapper(daily),

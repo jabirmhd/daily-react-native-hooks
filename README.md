@@ -1,6 +1,6 @@
 # Daily React Hooks
 
-Daily React Hooks makes it easier to integrate [@daily-co/daily-js](https://www.npmjs.com/package/@daily-co/daily-js) in React applications.
+Daily React Hooks makes it easier to integrate [@daily-co/react-native-daily-js](https://www.npmjs.com/package/@daily-co/react-native-daily-js) in React applications.
 
 ## Usage
 
@@ -10,11 +10,7 @@ To get started with Daily React Hooks, include [`DailyProvider`](https://docs.da
 import { DailyProvider } from '@daily-co/daily-react-hooks';
 
 function App({ roomUrl }) {
-  return (
-    <DailyProvider url={roomUrl}>
-      {/* … */}
-    </DailyProvider>
-  )
+  return <DailyProvider url={roomUrl}>{/* … */}</DailyProvider>;
 }
 ```
 
@@ -29,23 +25,29 @@ function ParticipantRow({ id }) {
   return (
     <li style={{ display: 'flex', gap: 8 }}>
       <span>{participant?.user_name ?? 'Guest'}</span>
-      <span>📷{participant?.tracks?.video?.state === 'playable' ? '✅' : '❌'}</span>
-      <span>🎙️{participant?.tracks?.audio?.state === 'playable' ? '✅' : '❌'}</span>
+      <span>
+        📷{participant?.tracks?.video?.state === 'playable' ? '✅' : '❌'}
+      </span>
+      <span>
+        🎙️{participant?.tracks?.audio?.state === 'playable' ? '✅' : '❌'}
+      </span>
     </li>
-  )
+  );
 }
 
 function Participants() {
   const participantIds = useParticipantIds({
     filter: 'remote',
-    sort: 'user_name'
+    sort: 'user_name',
   });
 
   return (
     <ul>
-      {participantIds.map((id) => <ParticipantRow key={id} id={id} />)}
+      {participantIds.map(id => (
+        <ParticipantRow key={id} id={id} />
+      ))}
     </ul>
-  )
+  );
 }
 ```
 
@@ -56,14 +58,14 @@ Learn more about Daily React Hooks by reading our docs at https://docs.daily.co/
 The `daily-react-hooks` package is published to [npm](https://npmjs.com). To install the latest stable version, run one of the following commands:
 
 ```bash
-npm install @daily-co/daily-react-hooks @daily-co/daily-js recoil
+npm install @daily-co/daily-react-hooks @daily-co/react-native-daily-js recoil
 
 # or with yarn
 
-yarn add @daily-co/daily-react-hooks @daily-co/daily-js recoil
+yarn add @daily-co/daily-react-hooks @daily-co/react-native-daily-js recoil
 ```
 
-Notice that `@daily-co/daily-react-hooks` requires [@daily-co/daily-js](https://www.npmjs.com/package/@daily-co/daily-js) and [recoil](https://www.npmjs.com/package/recoil) as peer dependencies.
+Notice that `@daily-co/daily-react-hooks` requires [@daily-co/react-native-daily-js](https://www.npmjs.com/package/@daily-co/react-native-daily-js) and [recoil](https://www.npmjs.com/package/recoil) as peer dependencies.
 
 `@daily-co/daily-react-hooks` manages its internal state using `recoil`. You can read more about `recoil` in their [Motivation](https://recoiljs.org/docs/introduction/motivation) statement.
 

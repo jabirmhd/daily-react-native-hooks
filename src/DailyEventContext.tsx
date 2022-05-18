@@ -1,4 +1,4 @@
-import { DailyEvent } from '@daily-co/daily-js';
+import { DailyEvent } from '@daily-co/react-native-daily-js';
 import { createContext } from 'react';
 
 interface EventContextValue {

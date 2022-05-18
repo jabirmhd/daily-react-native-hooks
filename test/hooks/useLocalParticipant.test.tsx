@@ -1,6 +1,6 @@
 /// <reference types="@types/jest" />
 
-import DailyIframe, { DailyCall } from '@daily-co/daily-js';
+import DailyIframe, { DailyCall } from '@daily-co/react-native-daily-js';
 import { act, renderHook } from '@testing-library/react-hooks';
 import React from 'react';
 
@@ -16,10 +16,11 @@ jest.mock('../../src/DailyRoom', () => ({
   DailyRoom: (({ children }) => <>{children}</>) as React.FC,
 }));
 
-const createWrapper =
-  (callObject: DailyCall = DailyIframe.createCallObject()): React.FC =>
-  ({ children }) =>
-    <DailyProvider callObject={callObject}>{children}</DailyProvider>;
+const createWrapper = (
+  callObject: DailyCall = DailyIframe.createCallObject()
+): React.FC => ({ children }) => (
+  <DailyProvider callObject={callObject}>{children}</DailyProvider>
+);
 
 describe('useLocalParticipant', () => {
   it('returns null, if daily.participants() does not contain local user yet', async () => {
