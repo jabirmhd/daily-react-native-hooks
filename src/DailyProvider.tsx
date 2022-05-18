@@ -14,14 +14,7 @@ import { DailyRoom } from './DailyRoom';
 
 type DailyProperties = Pick<
   DailyCallOptions,
-  | 'audioSource'
-  | 'dailyConfig'
-  | 'receiveSettings'
-  | 'subscribeToTracksAutomatically'
-  | 'token'
-  | 'url'
-  | 'userName'
-  | 'videoSource'
+  'audioSource' | 'reactNativeConfig'
 >;
 
 type Props =

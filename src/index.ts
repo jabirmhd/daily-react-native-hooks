@@ -1,7 +1,6 @@
 export { ExtendedDailyParticipant } from './DailyParticipants';
 export { DailyProvider } from './DailyProvider';
 export { useActiveParticipant } from './hooks/useActiveParticipant';
-export { useAppMessage } from './hooks/useAppMessage';
 export { useAudioTrack } from './hooks/useAudioTrack';
 export { useDaily } from './hooks/useDaily';
 export { useDailyEvent } from './hooks/useDailyEvent';

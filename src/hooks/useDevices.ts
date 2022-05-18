@@ -93,7 +93,7 @@ export const useDevices = () => {
         // const speakers = devices.filter(
         //   d => d.kind === 'audiooutput' && d.deviceId !== ''
         // );
-        const { camera, mic, speaker } = await daily.getInputDevices();
+        const { camera, mic } = await daily.getInputDevices();
 
         const mapDevice = (
           device: {} | MediaDeviceInfo,

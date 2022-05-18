@@ -15,7 +15,6 @@
     "build": "tsdx build",
     "test": "jest --passWithNoTests",
     "lint": "eslint . --ext ts,tsx",
-    "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
@@ -57,6 +56,9 @@
     }
   ],
   "devDependencies": {
+    "@daily-co/react-native-daily-js": "0.24.0",
+    "@daily-co/react-native-webrtc": "1.94.1-daily.4",
+    "@react-native-async-storage/async-storage": "^1.15.7",
     "@size-limit/preset-small-lib": "^5.0.3",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/faker": "^5.5.9",
@@ -80,6 +82,8 @@
     "prettier-eslint-cli": "^1.2.0",
     "react": ">=16.13.1",
     "react-dom": "^17.0.2",
+    "react-native-background-timer": "^2.3.1",
+    "recoil": "^0.7.0",
     "size-limit": "^5.0.3",
     "ts-jest": "^27.0.5",
     "tsdx": "^0.14.1",

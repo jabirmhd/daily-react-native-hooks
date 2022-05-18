@@ -63,8 +63,12 @@ export const useNetwork = ({
         set(networkQualityState, prevQuality =>
           prevQuality !== ev.quality ? ev.quality : prevQuality
         );
-        set(networkThresholdState, prevThreshold =>
-          prevThreshold !== ev.threshold ? ev.threshold : prevThreshold
+        set(
+          networkThresholdState,
+          prevThreshold =>
+            (prevThreshold !== ev.threshold
+              ? ev.threshold
+              : prevThreshold) as DailyNetworkStats['threshold']
         );
       });
       setTimeout(() => onNetworkQualityChange?.(ev), 0);

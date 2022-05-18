@@ -2,11 +2,9 @@ import {
   DailyEventObjectNonFatalError,
   // DailyInputSettings,
 } from '@daily-co/react-native-daily-js';
-import { useCallback, useEffect } from 'react';
-import { atom, useRecoilCallback, useRecoilValue } from 'recoil';
+import { atom, useRecoilValue } from 'recoil';
 
-import { useDaily } from './useDaily';
-import { useDailyEvent } from './useDailyEvent';
+// import { useDaily } from './useDaily';
 
 interface UseInputSettingsArgs {
   onError?(ev: DailyEventObjectNonFatalError): void;
@@ -22,13 +20,13 @@ const errorState = atom<string | null>({
   default: null,
 });
 
-export const useInputSettings = ({
-  onError,
-}: // onInputSettingsUpdated,
+// eslint-disable-next-line no-empty-pattern
+export const useInputSettings = ({}: // onError,
+// onInputSettingsUpdated,
 UseInputSettingsArgs = {}) => {
   // const inputSettings = useRecoilValue(inputSettingsState);
   const errorMsg = useRecoilValue(errorState);
-  const daily = useDaily();
+  // const daily = useDaily();
 
   // const updateInputSettingsState = useRecoilCallback(
   //   ({ set }) => (inputSettings: DailyInputSettings) => {
