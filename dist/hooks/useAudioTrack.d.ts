@@ -15,6 +15,8 @@ export declare const useAudioTrack: (participantId: string) => {
         byUser?: boolean | undefined;
         byRemoteRequest?: boolean | undefined;
         byBandwidth?: boolean | undefined;
+        byCanSendPermission?: boolean | undefined;
+        byServerLimit?: boolean | undefined;
     } | undefined;
     track?: import("@daily-co/react-native-webrtc").MediaStreamTrack | undefined;
 };

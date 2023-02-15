@@ -92,7 +92,9 @@ export const useParticipantIds = (
       case 'user_id':
       case 'user_name':
         sortFn = (a, b) => {
+          // @ts-ignore
           if (a[sort] < b[sort]) return -1;
+          // @ts-ignore
           if (a[sort] > b[sort]) return 1;
           return 0;
         };

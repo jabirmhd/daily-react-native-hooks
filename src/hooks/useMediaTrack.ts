@@ -50,6 +50,7 @@ export const useMediaTrack = (
             case 'participant-updated':
               set(mediaTrackState(key), ev.participant.tracks[type]);
               break;
+            // @ts-ignore
             case 'participant-left':
               reset(mediaTrackState(key));
               break;

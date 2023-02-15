@@ -1471,6 +1471,7 @@ var useMediaTrack = function useMediaTrack(participantId, type) {
             case 'participant-updated':
               set(mediaTrackState(key), ev.participant.tracks[type]);
               break;
+            // @ts-ignore
 
             case 'participant-left':
               reset(mediaTrackState(key));
@@ -2374,7 +2375,9 @@ var useParticipantIds = function useParticipantIds(_temp) {
       case 'user_id':
       case 'user_name':
         sortFn = function sortFn(a, b) {
-          if (a[sort] < b[sort]) return -1;
+          // @ts-ignore
+          if (a[sort] < b[sort]) return -1; // @ts-ignore
+
           if (a[sort] > b[sort]) return 1;
           return 0;
         };

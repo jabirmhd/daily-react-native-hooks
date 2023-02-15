@@ -18,6 +18,6 @@ export declare const useLiveStreaming: ({ onLiveStreamingStarted, onLiveStreamin
     }) => void;
     errorMsg?: string | undefined;
     isLiveStreaming: boolean;
-    layout?: import("@daily-co/react-native-daily-js").DailyStreamingDefaultLayoutConfig | import("@daily-co/react-native-daily-js").DailyStreamingSingleParticipantLayoutConfig | import("@daily-co/react-native-daily-js").DailyStreamingActiveParticipantLayoutConfig | import("@daily-co/react-native-daily-js").DailyStreamingPortraitLayoutConfig | undefined;
+    layout?: import("@daily-co/react-native-daily-js").DailyStreamingDefaultLayoutConfig | import("@daily-co/react-native-daily-js").DailyStreamingSingleParticipantLayoutConfig | import("@daily-co/react-native-daily-js").DailyStreamingActiveParticipantLayoutConfig | import("@daily-co/react-native-daily-js").DailyStreamingPortraitLayoutConfig | import("@daily-co/react-native-daily-js").DailyStreamingCustomLayoutConfig | undefined;
 };
 export {};
